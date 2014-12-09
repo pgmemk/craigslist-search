@@ -43,7 +43,8 @@ options = {
   city: 'newyork',
   category: 'tia', /* tickets */
   hasPic: 1,
-  offset: 100      /* next 100 records */
+  offset: 100,     /* next 100 records */
+  query: 'concert'
 }
 ```
 ### Listing Object
