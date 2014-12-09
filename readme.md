@@ -28,13 +28,15 @@ to get tickets with images
 ```bash
 node main --city=newyork --category=tia --hasPic=true
 ```
+and with a query
 
 ```bash
-node main --city=newyork --category=tia --hasPic=true --query=concert // an with a query
+node main --city=newyork --category=tia --hasPic=true --query=concert 
 ```
+Get the list of all craigslist cities
 
 ```bash
-node main --citiesOnly=true // get list of cities
+node main --citiesOnly=true 
 ```
 
 ### Options
