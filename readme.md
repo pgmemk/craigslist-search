@@ -16,17 +16,28 @@ npm install craigslist-search
 Example for command line: get ticket listings in New York 
 
 ```bash
-node main.js newyork tia          // gets first 100 ticket listings
+node main.js --city=newyork --category=tia          // gets first 100 ticket listings
 ```
 get next 100 ticket listings 
 
 ```bash
-node main.js newyork tia 100
+node main.js --city=newyork --category=tia --offset=100
 ```
 to get tickets with images
 
 ```bash
-node main.js newyork tia 0 true
+node main.js --city=newyork --category=tia --hasPic=true
+```
+
+```bash
+node main.js --city=newyork --category=tia --hasPic=true --query=concert // an with a query
+```
+
+```bash
+node main.js --citiesOnly=true // get list of cities
+```
+```bash
+node main.js --all=true --category=tia --hasPic=true --query=concert // runs the search for all cities
 ```
 
 ### Options
