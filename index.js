@@ -4,6 +4,8 @@ var QueryCraigslist = module.exports = function(options, callback) {
      city : options.city ? options.city : 'newyork'
   })
 
+  if (options.citiesOnly)
+    options.allCities = true
   var print = function(listing) {
     console.log(JSON.stringify(listing, null, 2))
   }

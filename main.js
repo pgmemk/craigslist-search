@@ -6,7 +6,7 @@ var argv = require('minimist')(process.argv.slice(2))
 
 var citiesOnly = argv.citiesOnly
 if (citiesOnly) {
-  qc({allCities: true, citiesOnly: true})
+  qc({citiesOnly: true})
   return
 }
 

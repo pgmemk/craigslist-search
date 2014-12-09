@@ -49,6 +49,13 @@ options = {
   query: 'concert'
 }
 ```
+For list of cities
+```javascript
+options = {
+  citiesOnly: 'true',
+}
+```
+
 ### Listing Object
 
 Each returned listing will have several properties like in the example below:
