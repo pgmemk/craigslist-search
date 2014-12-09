@@ -24,7 +24,7 @@ module.exports = function queryCraigslist(options, callback) {
 
     var all = options.allCities
     if (!all) {
-      callback(err, listings)
+      callback(err, options.city, listings)
       return;
     }
     
@@ -37,9 +37,9 @@ module.exports = function queryCraigslist(options, callback) {
       });
 
       client.search(options1, '', function(err, listings) {
-        if (err) return callback(err);
+        if (err) return callback(err)
 
-        callback(null, options1.city, listings);
+        callback(null, options1.city, listings)
       });
     })
   })
