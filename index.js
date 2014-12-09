@@ -25,7 +25,11 @@ var QueryCraigslist = module.exports = function(options, callback) {
     
   // play with listings here...
     listings.forEach(function (listing) {
-      var options1 = { city: listing.city, category: options.category }
+      var options1 = { city: listing.city }
+      Object.keys(options).forEach(function(key) {
+        if (key != 'allCities')
+          options1[key] = options[key]
+      })
       client.search(options1, '', function (err, l1) {
         if (l1) {
           callback(l1)

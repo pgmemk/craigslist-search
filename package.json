@@ -1,6 +1,6 @@
 {
   "name": "craigslist-search",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Has 2 applications. 1. Can list craigslist listings in particular city in particular category. 2. Can list all the listings in all craigslist cities for one particular category",
   "main": "index.js",
   "dependencies": {
