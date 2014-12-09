@@ -1,11 +1,11 @@
 var craigslist = require('node-craigslist');
 
-var print = function(err, listing) {
+var print = function(err, city, listing) {
   console.log(JSON.stringify(listing, null, 2))
 }
 
 module.exports = function queryCraigslist(options, callback) {
-  callback = callback | print;
+  callback = callback || print;
 
   var client = craigslist({
      city : options.city ? options.city : 'newyork'
@@ -16,7 +16,7 @@ module.exports = function queryCraigslist(options, callback) {
 
   client.search(options, '', function (err, listings) {
     if (err) return callback(err);
-    
+
     if (!listings || options.citiesOnly) {
       callback(err, listings)
       return;
@@ -28,7 +28,7 @@ module.exports = function queryCraigslist(options, callback) {
       return;
     }
     
-  // play with listings here...
+    // play with listings here...
     listings.forEach(function (listing) {
       var options1 = { city: listing.city }
       Object.keys(options).forEach(function(key) {
@@ -36,7 +36,11 @@ module.exports = function queryCraigslist(options, callback) {
           options1[key] = options[key]
       });
 
-      client.search(options1, '', callback);
+      client.search(options1, '', function(err, listings) {
+        if (err) return callback(err);
+
+        callback(null, options1.city, listings);
+      });
     })
   })
 }

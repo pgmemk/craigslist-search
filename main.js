@@ -1,6 +1,6 @@
 // USAGE node main [city/www(for all cities)] [category] [start record] [hasPic]
 
-var searchCraigslist = require('./')
+var qc = require('./')
 var minimist = require('minimist')
 var argv = minimist(process.argv.slice(2))
 
