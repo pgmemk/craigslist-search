@@ -1,42 +1,40 @@
+var craigslist = require('node-craigslist');
 
-'use strict';
-
-var craigslist = require('node-craigslist')
-var extend = require('extend')
-
-function prettyPrint(err, city, listings) {
-  if (err) return console.error(err);
-
-  var results = {
-    city: city,
-    listings: listings
-  }
-
-  console.log(JSON.stringify(results, null, 2))
+var print = function(err, listing) {
+  console.log(JSON.stringify(listing, null, 2))
 }
 
-module.exports = function search(options, callback) {
-  callback = callback || prettyPrint;
-  options = extend({ 
-    isSites: !options.city, 
-    city: 'www' 
-  }, options);
+module.exports = function queryCraigslist(options, callback) {
+  callback = callback | print;
 
   var client = craigslist({
-    city : options.city
-  });
+     city : options.city ? options.city : 'newyork'
+  })
 
-  client.search(options, '', function handleResults(err, listings) {
-    if (err) return callback(err)
-      
-    if (!listings || !options.isSites) return callback(null, options.city, listings);
+  if (options.citiesOnly)
+    options.allCities = true
+
+  client.search(options, '', function (err, listings) {
+    if (err) return callback(err);
     
-    // call back per city
+    if (!listings || options.citiesOnly) {
+      callback(err, listings)
+      return;
+    }
+
+    var all = options.allCities
+    if (!all) {
+      callback(err, listings)
+      return;
+    }
+    
+  // play with listings here...
     listings.forEach(function (listing) {
-      var options1 = extend({}, options, {
-        city: listing.city,
-        isSites: false
-      })
+      var options1 = { city: listing.city }
+      Object.keys(options).forEach(function(key) {
+        if (key !== 'allCities')
+          options1[key] = options[key]
+      });
 
       client.search(options1, '', callback);
     })
