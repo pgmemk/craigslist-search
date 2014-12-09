@@ -2,22 +2,35 @@
 
 var qc = require('./')
 
-var city = process.argv[2]
-if (!city)
+var argv = require('minimist')(process.argv.slice(2))
+
+var citiesOnly = argv.citiesOnly
+if (citiesOnly) {
+  qc({allCities: true, citiesOnly: true})
+  return
+}
+
+var all = argv.all
+var city = argv.city
+if (!city  &&  !all)
   throw new Error('No city')
-var category = process.argv[3]
+var category = argv.category
 if (!category)
   throw new Error('No category')
+var offset = argv.offset
+var hasPic = argv.hasPic
+var query = argv.query
 
-var offset = process.argv[4]
-var hasPic = process.argv[5]
+var options = {category: category};
+if (all)
+  options.allCities = true 	
+if (city)
+  options.city = city
 
-var options = {city: city, category: category}
-if (city == 'www')
-  options.isSites = true 	
 if (offset)
   options.s = offset
 if (hasPic  &&  (hasPic == '1' || hasPic == 'true'))
   options.hasPic = 1
-
+if (query)
+	options.query = query
  qc(options)

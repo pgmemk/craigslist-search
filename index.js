@@ -10,10 +10,15 @@ var QueryCraigslist = module.exports = function(options, callback) {
   client.search(options, '', function (err, listings) {
   	if (!listings) 
       return;
-    var isSites = options.city == 'www'
     if (!callback)
       callback = print
-    if (!isSites) {
+    if (options.citiesOnly) {
+      callback(listings)
+      return;
+    }
+
+    var all = options.allCities
+    if (!all) {
       callback(listings)
       return;
     }
