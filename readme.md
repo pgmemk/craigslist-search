@@ -21,20 +21,20 @@ node main.js --city=newyork --category=tia   // gets first 100 ticket listings
 get next 100 ticket listings 
 
 ```bash
-node main.js --city=newyork --category=tia --offset=100
+node main --city=newyork --category=tia --offset=100
 ```
 to get tickets with images
 
 ```bash
-node main.js --city=newyork --category=tia --hasPic=true
+node main --city=newyork --category=tia --hasPic=true
 ```
 
 ```bash
-node main.js --city=newyork --category=tia --hasPic=true --query=concert // an with a query
+node main --city=newyork --category=tia --hasPic=true --query=concert // an with a query
 ```
 
 ```bash
-node main.js --citiesOnly=true // get list of cities
+node main --citiesOnly=true // get list of cities
 ```
 
 ### Options
