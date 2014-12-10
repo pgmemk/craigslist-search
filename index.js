@@ -11,6 +11,13 @@ var QueryCraigslist = module.exports = function(options, callback) {
 
   if (options.citiesOnly)
     options.allCities = true
+  var url = options.url
+  if (url) {
+    var idx = url.indexOf('://') + 3;
+    var idx1 = url.indexOf('/', idx);
+    options.hostname = url.substring(idx, idx1)
+    options.path = url.substring(idx1)
+  }
   client.search(options, '', function (err, listings) {
   	if (!listings) 
       return;
@@ -22,6 +29,7 @@ var QueryCraigslist = module.exports = function(options, callback) {
     }
 
     var all = options.allCities
+
     if (all) {
     // play with listings here...
       listings.forEach(function (listing) {
@@ -41,6 +49,9 @@ var QueryCraigslist = module.exports = function(options, callback) {
         callback(err, listings)
         return
       }  
+      if (options.url) 
+        return callback(err, listings)
+      
       // For the listing with full description we need to run request per listings url and extract description from it
       listings.forEach(function(listing) {
         var idx = listing.url.indexOf('://') + 3;
