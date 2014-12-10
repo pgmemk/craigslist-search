@@ -20,13 +20,15 @@ if (!category)
 var offset = argv.offset
 var hasPic = argv.hasPic
 var query = argv.query
+var fullListing = argv.fullListing
 
 var options = {category: category};
 if (all)
   options.allCities = true 	
 if (city)
   options.city = city
-
+if (fullListing)
+  options.fullListing = true
 if (offset)
   options.s = offset
 if (hasPic  &&  (hasPic == '1' || hasPic == 'true'))
