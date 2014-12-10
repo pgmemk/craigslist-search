@@ -20,7 +20,7 @@ var QueryCraigslist = module.exports = function(options, callback) {
   }
   client.search(options, '', function (err, listings) {
   	if (!listings) {
-      callback(null, {}})
+      callback(null, {})
       return;
     }
     if (!callback)
