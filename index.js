@@ -19,8 +19,10 @@ var QueryCraigslist = module.exports = function(options, callback) {
     options.path = url.substring(idx1)
   }
   client.search(options, '', function (err, listings) {
-  	if (!listings) 
+  	if (!listings) {
+      callback(null, {}})
       return;
+    }
     if (!callback)
       callback = print
     if (options.citiesOnly) {
