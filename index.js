@@ -17,6 +17,7 @@ var QueryCraigslist = module.exports = function(options, callback) {
     var idx1 = url.indexOf('/', idx);
     options.hostname = url.substring(idx, idx1)
     options.path = url.substring(idx1)
+    options.fullListing = true
   }
   client.search(options, '', function (err, listings) {
   	if (!listings) {
