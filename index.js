@@ -5,6 +5,9 @@ var print = function(err, listing) {
   console.log(JSON.stringify(listing, null, 2))
 }
 var QueryCraigslist = module.exports = function(options, callback) {
+ if (options.url) 
+   options.fullListing = true
+
   client = craigslist({
      city : options.city ? options.city : ''
   })
@@ -17,10 +20,13 @@ var QueryCraigslist = module.exports = function(options, callback) {
     var idx1 = url.indexOf('/', idx);
     options.hostname = url.substring(idx, idx1)
     options.path = url.substring(idx1)
+    options.fullListing = true
   }
   client.search(options, '', function (err, listings) {
-  	if (!listings) 
+  	if (!listings) {
+      callback(null, {})
       return;
+    }
     if (!callback)
       callback = print
     if (options.citiesOnly) {
