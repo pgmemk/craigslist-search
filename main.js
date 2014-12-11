@@ -3,7 +3,8 @@
 var qc = require('./')
 
 var argv = require('minimist')(process.argv.slice(2))
-
+qc(argv)
+/*
 var citiesOnly = argv.citiesOnly
 if (citiesOnly) {
   qc({citiesOnly: true})
@@ -41,3 +42,4 @@ if (hasPic  &&  (hasPic == '1' || hasPic == 'true'))
 if (query)
 	options.query = query
  qc(options)
+*/
