@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "extend": "^2.0.0",
-    "node-craigslist": "git://github.com/pgmemk/node-craigslist"
+    "node-craigslist": "git://github.com/mvayngrib/node-craigslist"
   },
   "devDependencies": {
     "minimist": "~1.1.0"
