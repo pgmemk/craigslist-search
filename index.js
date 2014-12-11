@@ -5,6 +5,9 @@ var print = function(err, listing) {
   console.log(JSON.stringify(listing, null, 2))
 }
 var QueryCraigslist = module.exports = function(options, callback) {
+ if (options.url) 
+   options.fullListing = true
+
   client = craigslist({
      city : options.city ? options.city : ''
   })
