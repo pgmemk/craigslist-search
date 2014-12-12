@@ -1,10 +1,11 @@
 {
   "name": "craigslist-search",
-  "version": "0.0.12",
+  "version": "0.0.17",
   "description": "Has 2 applications. 1. Can list craigslist listings in particular city in particular category. 2. Can list all the listings in all craigslist cities for one particular category",
-  "main": "index.js",
+  "main": "index_.js",
   "dependencies": {
-    "node-craigslist": "git://github.com/pgmemk/node-craigslist"
+    "node-craigslist": "git://github.com/pgmemk/node-craigslist",
+    "cheerio": "^0.17.0"
   },
   "devDependencies": {
     "minimist": "~1.1.0"
