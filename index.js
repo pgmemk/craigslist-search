@@ -2,12 +2,12 @@ var cheerio = require('cheerio'),
     craigslist = require('node-craigslist');
 
 var print = function(err, listing) {
-  if (err)
-    return err;
+  if (err) return err;
+
   console.log(JSON.stringify(listing, null, 2))
 }
-var isFullDescriptionRequest, client
-var QueryCraigslist = module.exports = function(options, callback) {
+
+module.exports = function(options, callback) {
  if (options.url) 
    options.fullListing = true
 
@@ -30,8 +30,9 @@ var QueryCraigslist = module.exports = function(options, callback) {
     options.path = url.substring(idx1)
     options.fullListing = true
   }
-  isFullDescriptionRequest = options.fullListing  &&  options.path
-  this.callback = callback == null ? print : callback
+
+  var isFullDescriptionRequest = options.fullListing  &&  options.path
+  callback = callback || print
 
   var callFunction;
   if (options.allCities)
@@ -45,22 +46,23 @@ var QueryCraigslist = module.exports = function(options, callback) {
    else
     callFunction = getListings
 
-   this.client.search(options, '', callFunction);
-  }
+  this.client.search(options, '', function() {
+    var args = [].slice.call(arguments)
+    args.push(callback)
+    callFunction.apply(this, args)
+  })
+}
 
 
   /*
     Accepts string of HTML and parses that string to find all pertinent listings.
   */
-  function getListings (options, html) {
+  function getListings (options, html, callback) {
     var listings = this.client.getListings(options, html)
-    listings.forEach(function (listing) {
-      this.callback(null, listing)
-    })
-    return listings;
+    callback(null, listings)
   }
 
-  function getCities(options, html) {
+  function getCities(options, html, callback) {
     var
       $ = cheerio.load(html),
       listing = {},
@@ -79,10 +81,8 @@ var QueryCraigslist = module.exports = function(options, callback) {
        listings.push(listing)
     })  
     if (options.citiesOnly) {
-      listings.forEach(function (listing) {
-        this.callback(null, listing)
-      })
-      return listings
+      callback(null, listings);
+      return;
     }
     // play with listings here...
     listings.forEach(function (listing) {
@@ -96,10 +96,10 @@ var QueryCraigslist = module.exports = function(options, callback) {
       this.client.search(options1, '', getListings)
     })
 
-    return listings
+    callback(null, listings);
   }
 
-  function getCategories(options, html) {
+  function getCategories(options, html, callback) {
     var
       $ = cheerio.load(html),
       listing = {},
@@ -124,12 +124,10 @@ var QueryCraigslist = module.exports = function(options, callback) {
 
        listings.push(listing)
     })  
-    listings.forEach(function (listing) {
-      this.callback(null, listing)
-    })
-    return listings
+
+    callback(null, listings)
   }
-  function getSubCities(options, html) {
+  function getSubCities(options, html, callback) {
     var
       $ = cheerio.load(html),
       listing = {},
@@ -161,14 +159,12 @@ var QueryCraigslist = module.exports = function(options, callback) {
       })
 
     }
-    listings.forEach(function (listing) {
-      this.callback(null, listing)
-    })
-    return listings
+
+    callback(null, listings)
   }
 
     // Extracting full description for the listing
-  function getDescription(options, html) {
+  function getDescription(options, html, callback) {
     var
       $ = cheerio.load(html);
 
@@ -201,9 +197,9 @@ var QueryCraigslist = module.exports = function(options, callback) {
       }
     })
 
-    this.callback(null, listing)
+    callback(null, listing)
   }
-  function getRssListings (options, html) {
+  function getRssListings (options, html, callback) {
     var
       $ = cheerio.load(html),
       listing = {},
@@ -271,4 +267,6 @@ var QueryCraigslist = module.exports = function(options, callback) {
         // }
       listings.push(listing);
     });
+
+  callback(null, listings);
 }
