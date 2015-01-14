@@ -1,8 +1,9 @@
 {
+	"asi": true,
 	"bitwise" : true,
 	"camelcase" : true,
-	"curly" : true,
-	"eqeqeq" : true,
+	"curly" : false,
+	"eqeqeq" : false,
 	"forin" : true,
 	"immed" : true,
 	"indent" : true,
@@ -18,7 +19,7 @@
 	"strict" : true,
 	"trailing" : true,
 	"undef" : true,
-	"unused" : true,
+	"unused" : false,
 	"globals" : {
 		"after" : true,
 		"before" : true,

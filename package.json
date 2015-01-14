@@ -4,10 +4,16 @@
   "description": "Has 2 applications. 1. Can list craigslist listings in particular city in particular category. 2. Can list all the listings in all craigslist cities for one particular category",
   "main": "index.js",
   "dependencies": {
-    "node-craigslist": "git://github.com/pgmemk/node-craigslist",
-    "cheerio": "^0.17.0"
+    "cheerio": "^0.17.0",
+    "extend": "^2.0.0",
+    "node-craigslist": "git://github.com/tradle/node-craigslist",
+    "q": "^1.1.2"
   },
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jsbeautifier": "^0.2.7",
+    "load-grunt-tasks": "^2.0.0",
     "minimist": "~1.1.0"
   },
   "scripts": {
@@ -16,6 +22,6 @@
   "keywords": [
     "craigslist"
   ],
-  "author": "",
+  "author": "Ellen Katsnelson",
   "license": "MIT"
 }
